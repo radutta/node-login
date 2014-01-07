@@ -7,6 +7,7 @@ function HomeController()
 
 // handle user logout //
 	$('#btn-logout').click(function(){ that.attemptLogout(); });
+	$('#btn-upload').click(function(){ that.attemptUpload(); });
 
 // confirm account deletion //
 	$('#account-form-btn1').click(function(){$('.modal-confirm').modal('show')});
@@ -46,6 +47,20 @@ function HomeController()
 			}
 		});
 	}
+	
+	this.attemptUpload = function()
+	{
+		console.log("File Upload Called");
+		var that = this;
+		$.ajax({
+			url: "/uploadData",
+			type: "GET",
+			error: function(jqXHR){
+				console.log(jqXHR.responseText+' :: '+jqXHR.statusText);
+			}
+		});
+	}
+
 
 	this.showLockedAlert = function(msg){
 		$('.modal-alert').modal({ show : false, keyboard : false, backdrop : 'static' });

@@ -39,6 +39,38 @@ module.exports = function(app) {
 		});
 	});
 	
+//File Upload	
+	app.get('/uploadData', function(req, res) {
+		console.log("Here!!!");
+	    if (req.session.user == null){
+	// if user is not logged-in redirect back to login page //
+	        res.redirect('/');
+	    }   else{
+			res.render('fileUpload', {
+				title : 'Control Panel',
+				countries : CT,
+				udata : req.session.user
+			});
+	    }
+	});
+	
+	//File Upload	
+	app.post('/uploadData', function(req, res) {
+		console.log("Recived Request");
+	    if (req.session.user == null){
+	// if user is not logged-in redirect back to login page //
+	        res.redirect('/');
+	    }   else{
+	    	console.log("User ID ::"+req.param());
+	    	console.log("Comments ::"+req.param('comments'));
+			res.render('fileUpload', {
+				title : 'Control Panel',
+				countries : CT,
+				udata : req.session.user
+			});
+	    }
+	});
+	
 // logged-in user homepage //
 	
 	app.get('/home', function(req, res) {
