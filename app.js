@@ -7,10 +7,14 @@
 
 var express = require('express');
 var http = require('http');
+var fs = require('fs');
+var formidable = require("formidable");
+var path = require('path'); 
 var app = express();
 
+
 app.configure(function(){
-	app.set('port', 8080);
+	app.set('port', 8090);
 	app.set('views', __dirname + '/app/server/views');
 	app.set('view engine', 'jade');
 	app.locals.pretty = true;
@@ -28,7 +32,7 @@ app.configure('development', function(){
 	app.use(express.errorHandler());
 });
 
-require('./app/server/router')(app);
+require('./app/server/router')(app,fs,formidable,path);
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log("Express server listening on port " + app.get('port'));

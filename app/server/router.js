@@ -3,7 +3,8 @@ var CT = require('./modules/country-list');
 var AM = require('./modules/account-manager');
 var EM = require('./modules/email-dispatcher');
 
-module.exports = function(app) {
+
+module.exports = function(app,fs,formidable,path) {
 
 // main login page //
 
@@ -61,8 +62,19 @@ module.exports = function(app) {
 	// if user is not logged-in redirect back to login page //
 	        res.redirect('/');
 	    }   else{
-	    	console.log("User ID ::"+req.param());
+	    	console.log("User ID ::"+req.param('userID'));
 	    	console.log("Comments ::"+req.param('comments'));
+	    	console.log("File Name ::"+req.files.inputfile.name);
+	    	
+	    	
+	    	fs.readFile(req.files.inputfile.path, function (err, data) {
+	    		  console.log(data);
+	    		  var newPath = "C://" + "/uploads/uploadedFileName";
+	    		  fs.writeFile("abcd.jpg", data, function (err) {
+	    		   
+	    		  });
+	    		});
+	    	
 			res.render('fileUpload', {
 				title : 'Control Panel',
 				countries : CT,
